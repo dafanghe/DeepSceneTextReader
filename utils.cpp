@@ -139,7 +139,8 @@ void rotate_image_and_points(cv::Mat& cropped, std::vector<cv::Point>& points,
   //cv::imwrite("test.jpg", rotated_image);
   
   //crop the word image. It contains some background.
-  float extend_ratio = 0.1;
+  float extend_ratio_x = 0.05;
+  float extend_ratio_y = 0.1;
   int minx = 10000, miny = 10000, maxx = 0, maxy = 0;
 
   for(auto &point: rotated_points){
@@ -149,10 +150,10 @@ void rotate_image_and_points(cv::Mat& cropped, std::vector<cv::Point>& points,
     maxy = std::max(maxy, point.y);
   }
   
-  minx = std::max(minx - int(extend_ratio * min_side), 0);
-  miny = std::max(miny - int(extend_ratio * min_side), 0);
-  maxx = std::min(maxx + int(extend_ratio * min_side), rotated_image.cols);
-  maxy = std::min(maxy + int(extend_ratio * min_side), rotated_image.rows);
+  minx = std::max(minx - int(extend_ratio_x * min_side), 0);
+  miny = std::max(miny - int(extend_ratio_y * min_side), 0);
+  maxx = std::min(maxx + int(extend_ratio_x * min_side), rotated_image.cols);
+  maxy = std::min(maxy + int(extend_ratio_y * min_side), rotated_image.rows);
 
   //crop it
   rotated_image = rotated_image(cv::Rect(minx, miny, maxx-minx, maxy-miny));
@@ -181,5 +182,5 @@ void draw_text_box(cv::Mat& image, TextBox& text_box){
   cv::Point p1, p2;
   text_box.get_rectangle_box(p1, p2);
   cv::Point draw_loc(std::max(0, p1.x - 10), std::max(0, p1.y - 10));
-  cv::putText(image, text_box.get_text(), draw_loc, cv::FONT_HERSHEY_PLAIN, 1,  cv::Scalar(0,255,255));
+  cv::putText(image, text_box.get_text(), draw_loc, cv::FONT_HERSHEY_PLAIN, 1.3,  cv::Scalar(0,255,255));
 }
