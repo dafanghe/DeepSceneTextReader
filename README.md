@@ -1,5 +1,5 @@
 # DeepSceneTextReader
-This is a c++ project deploy a deep scene text reading. It reads text from natural scene images.
+This is a c++ project deploying a deep scene text reading. It reads text from natural scene images.
 
 # Prerequsites
 
@@ -32,9 +32,13 @@ The excutable could be excuted in three modes:  (1) Detect  (2) Recognize  (3) D
 
 ## Detect
 Download the pretrained detector model and put it in model/
+
 detector_graph=model/Detector_model.pb
+
 image_filename=test_images/test_img1.jpg
+
 output_filename=results/output_image.jpg
+
 mode='detect'
 
 ./DetectText --detector_graph=$detector_graph \
@@ -45,8 +49,11 @@ Download the pretrained recognizer model and put it in model/
 Download the dictionary file and put it in model
 
 recognizer_graph='model/Recognizer_model.pb'
+
 image_filename=test_images/recognize_image1.jpg
+
 dictionary_filename='model/charset_full.txt'
+
 mode='recognize'
 
 ./DetectText --recognizer_graph=$recognizer_graph \
@@ -56,10 +63,15 @@ mode='recognize'
 Download the pretrained detector and recognizer model and put it in model/
 
 detector_graph=model/Detector_model.pb
+
 recognizer_graph='model/Recognizer_model.pb'
+
 dictionary_filename='model/charset_full.txt'
+
 image_filename=test_images/recognize_image1.jpg
+
 output_filename=results/output_image.jpg
+
 mode='recognize'
 
 ./DetectText --recognizer_graph=$recognizer_graph --detector_graph=$detector_graph \
