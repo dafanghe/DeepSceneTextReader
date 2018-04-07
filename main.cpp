@@ -14,14 +14,14 @@
 
 int detect_text(string& detector_graph_filename, string& image_filename, string& output_filename)
 {
-  std::cout<<"start text detection:"<<std::endl;
+  LOG(INFO)<<"start text detection:";
 
   SceneTextDetector detector(detector_graph_filename);
 
   cv::Mat image = cv::imread(image_filename);
   if(!image.data)                              // Check for invalid input
   {
-      std::cout <<  "Could not open or find the image " << image_filename << std::endl ;
+      LOG(ERROR) <<  "Could not open or find the image " << image_filename;
       return -1;
   } 
   std::vector<cv::Scalar> colors={cv::Scalar(0,0,255), cv::Scalar(0,255,0),
@@ -44,20 +44,20 @@ int detect_text(string& detector_graph_filename, string& image_filename, string&
 int recognize_text(string& recognizer_graph_filename, string& dictionary_filename,
     string& image_filename)
 {
-  std::cout<<"start text recognition: "<<recognizer_graph_filename<<std::endl;
+  LOG(INFO) <<"start text recognition: "<<recognizer_graph_filename;
   SceneTextRecognizer recognizer(recognizer_graph_filename, dictionary_filename); 
 
   cv::Mat image = cv::imread(image_filename);
   if(!image.data)                              // Check for invalid input
   {
-    std::cout <<  "Could not open or find the image " << image_filename << std::endl;
+    LOG(ERROR) <<  "Could not open or find the image " << image_filename;
     return -1;
   }
-  std::cout<<" read text image: "<<image.rows<<" "<<image.cols<<std::endl;
+  LOG(INFO)<<" read text image: "<<image.rows<<" "<<image.cols;
   cv::Mat preprocessed_image;
   recognizer.preprocess_image(image, preprocessed_image);
   string res = recognizer.run_graph(preprocessed_image);
-  std::cout<<"prediction : "<<res<<std::endl;
+  LOG(INFO)<<"prediction : "<<res;
   return 0;
 }
 
@@ -71,7 +71,7 @@ int end_to_end_reading(string& detector_graph_filename, string& recognizer_graph
   cv::Mat image = cv::imread(image_filename);
   if(!image.data)                              // Check for invalid input
   {
-      std::cout <<  "Could not open or find the image " << image_filename << std::endl ;
+      LOG(ERROR) <<  "Could not open or find the image " << image_filename;
       return -1;
   } 
   std::vector<TextBox> res;

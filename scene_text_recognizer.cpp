@@ -73,9 +73,9 @@ SceneTextRecognizer::SceneTextRecognizer(std::string frozen_graph_filename, std:
 bool SceneTextRecognizer::init_dictionary(const std::string& filename){
   std::ifstream inf(filename, std::ios::in);
   if(!inf.is_open())
-  { std::cout<<"Error dictionary opening file "<<filename<<std::endl; std::exit(1); }
+  { LOG(ERROR)<<"Error dictionary opening file "<<filename; std::exit(1); }
 
-  std::cout<<"read dictionary file "<<filename<<std::endl;
+  LOG(INFO) <<"read dictionary file "<<filename;
   std::string line;
   std::vector<string> splits;
   while(!inf.eof()){
@@ -137,7 +137,9 @@ string SceneTextRecognizer::run_graph(const cv::Mat& image){
   
   const Eigen::Tensor<float, indices.NumDimensions>::Dimensions& indices_dim = indices.dimensions();
   const Eigen::Tensor<float, values.NumDimensions>::Dimensions& values_dim = values.dimensions();
-  
+ 
+  LOG(INFO) << outputs[0].DebugString();
+  LOG(INFO) << outputs[1].DebugString();
   std::vector<int> encoded_text;
   for(int i=0; i<values_dim[0]; i++){
     for(int j=0; j<values_dim[1]; j++){
@@ -155,10 +157,6 @@ string SceneTextRecognizer::decode_single_text(std::vector<int>& vec){
     res.push_back(this->mapping[vec[i]]);
   }
   return res;
-}
-
-int SceneTextRecognizer::run_graph(const std::string image_filename){
-  std::cout<<"not implemented"<<std::endl;
 }
 
 
@@ -203,7 +201,7 @@ std::vector<std::string> SceneTextRecognizer::run_graph(const std::vector<cv::Ma
 
   for(int i=0; i<num_word; i++){
     const cv::Mat& image = images[i];
-    std::cout<<"assign image to tensor"<<i<<" "<<image.rows<<" "<<image.cols<<std::endl;
+    //std::cout<<"assign image to tensor"<<i<<" "<<image.rows<<" "<<image.cols<<std::endl;
     assert (image.rows == height);
     assert (image.cols == width);
     const unsigned char *input_data = (const unsigned char*)(image.data); 
@@ -226,7 +224,7 @@ std::vector<std::string> SceneTextRecognizer::run_graph(const std::vector<cv::Ma
     {this->input_layers[1], input_seq_len_tensor},
   };
 
-  std::cout<<"run recognition graph"<<std::endl;
+  //std::cout<<"run recognition graph"<<std::endl;
   std::vector<Tensor> outputs;
   Status run_status = this->session->Run(inputs,
             this->output_layers, {}, &outputs);
@@ -236,8 +234,8 @@ std::vector<std::string> SceneTextRecognizer::run_graph(const std::vector<cv::Ma
   }
   LOG(INFO) <<"number of output:"<<outputs.size();
  
-  std::cout<<outputs[0].DebugString()<<std::endl;
-  std::cout<<outputs[1].DebugString()<<std::endl;
+  //std::cout<<outputs[0].DebugString()<<std::endl;
+  //std::cout<<outputs[1].DebugString()<<std::endl;
   auto indices_shape = outputs[0].shape();
 
   auto indices = outputs[0].tensor<long long, 2>();

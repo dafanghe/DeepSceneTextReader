@@ -35,7 +35,7 @@ cmake ..
 
 make
 
-It will create an excutable named *etectText* in bin folder.
+It will create an excutable named **DetectText** in bin folder.
 
 # Usage:
 The excutable could be excuted in three modes:  (1) Detect  (2) Recognize  (3) Detect and Recognize

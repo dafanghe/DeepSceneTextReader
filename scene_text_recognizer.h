@@ -41,7 +41,6 @@ class SceneTextRecognizer{
     bool init(const std::string frozen_graph_filename,const std::string);
     void preprocess_image(cv::Mat& input_image, cv::Mat& output_image);
     std::vector<cv::Mat> preprocess_image(std::vector<cv::Mat>& input_images);
-    int run_graph(std::string);
     std::string run_graph(const cv::Mat& image);
     std::vector<std::string> run_graph(const std::vector<cv::Mat> input_images);
     bool init_graph(const std::string&);
