@@ -2,7 +2,7 @@
 This is a c++ project deploying a deep scene text reading. It reads text from natural scene images.
 
 <p align="center">
-  <img src="images/1.jpg" width=140 height=195>
+  <img src="images/1.jpg" width=1280 height=720>
 </p>
 
 
