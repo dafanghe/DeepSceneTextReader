@@ -18,6 +18,9 @@ Please check this project on how to build project using tensorflow with cmake:
 https://github.com/cjweeks/tensorflow-cmake
 It greatly helped the process of building this project.
 
+# Status
+Currently two pretrained model is provided. One for scene text detection, and one for scene text recognition.
+More model will be provided.
 
 # build process
 
@@ -53,20 +56,20 @@ Download the pretrained detector and recognizer model and put it in model/ as de
 # Model Description
 
 ### Detector
-#### Faster RCNN Detector Model
+1. Faster RCNN Detector Model
 The detector is trained with modified tensorflow [object detector api]: (https://github.com/tensorflow/models/tree/master/research/object_detection)
 I modify it by changing the proposal scheme to regress to oriented bounding box rather than regular rectangular bounding box.
 
-#### More model to be updated
+2. More model to be updated
 
 ### Recognizer
-#### CTC scene text recognizer.
+1. CTC scene text recognizer.
 The recognizer model follows the famous scene text recognition [CRNN model](https://arxiv.org/abs/1507.05717)
 
-#### Attention OCR will be updated soon.
+2. Attention OCR will be updated soon.
 
 ### Detect and Recognize
-The whole scene text reading pipeline detect the text and rotate it horizontally and read it with recognizer.
+The whole scene text reading pipeline detects the text and rotate it horizontally and read it with recognizer.
 The pipeline is here:
 
 
