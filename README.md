@@ -1,5 +1,5 @@
 # DeepSceneTextReader
-This is a c++ project deploying a deep scene text reading. It reads text from natural scene images.
+This is a c++ project deploying a deep scene text reading pipeline. It reads text from natural scene images.
 
 <p align="center">
   <img src="images/1.jpg" width=1280 height=720>
@@ -21,7 +21,7 @@ eigen
 
 Please check this project on how to build project using tensorflow with cmake:
 https://github.com/cjweeks/tensorflow-cmake
-It greatly helped the process of building this project.
+It greatly helped the progress of building this project.
 
 # Status
 Currently two pretrained model is provided. One for scene text detection, and one for scene text recognition.
@@ -30,10 +30,12 @@ More model will be provided.
 # build process
 
 cd build
+
 cmake ..
+
 make
 
-it will create an excutable DetectText in bin folder.
+It will create an excutable named *etectText* in bin folder.
 
 # Usage:
 The excutable could be excuted in three modes:  (1) Detect  (2) Recognize  (3) Detect and Recognize
@@ -59,21 +61,20 @@ Download the pretrained detector and recognizer model and put it in model/ as de
    --image_filename='model/Recognizer_model.pb' --mode='detect_and_read' --output_filename='results/output_image.jpg' 
 
 # Model Description
-
-### Detector
+### *Detector*
 1. Faster RCNN Detector Model
 The detector is trained with modified tensorflow [object detector api]: (https://github.com/tensorflow/models/tree/master/research/object_detection)
 I modify it by changing the proposal scheme to regress to oriented bounding box rather than regular rectangular bounding box.
 
-2. More model to be updated
+2. More model to be updated.
 
-### Recognizer
+### *Recognizer*
 1. CTC scene text recognizer.
 The recognizer model follows the famous scene text recognition [CRNN model](https://arxiv.org/abs/1507.05717)
 
 2. Attention OCR will be updated soon.
 
-### Detect and Recognize
+### *Detect and Recognize*
 The whole scene text reading pipeline detects the text and rotate it horizontally and read it with recognizer.
 The pipeline is here:
 
