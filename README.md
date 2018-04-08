@@ -5,6 +5,7 @@ This is a c++ project deploying a deep scene text reading pipeline. It reads tex
   <img src="images/1.jpg" width=1280 height=720>
   <img src="images/2.jpg" width=288 height=200>
   <img src="images/3.jpg" width=256 height=200>
+  <img src="images/4.jpg" width=256 height=200>
 </p>
 
 
@@ -15,7 +16,7 @@ Please install:
 
 * Tensorflow
 
-* nsync project: https://github.com/google/nsync.git
+* nsync project: https://github.com/google/nsync.git  This is needed for building tensorflow.
 
 * opencv3.3
 
@@ -94,3 +95,7 @@ The pipeline is here:
 - [Tensorflow Object Detection API](https://github.com/tensorflow/models/tree/master/research/object_detection).
 - [An End-to-End Trainable Neural Network for Image-based Sequence Recognition and Its Application to Scene Text Recognition](https://arxiv.org/abs/1507.05717), reference paper for CRNN model.
 - [tensorflow-cmake](https://github.com/cjweeks/tensorflow-cmake), Tutorial of Building Project with tensorflow using cmake.
+
+# Contact:
+
+* Dafang He.  hdfcraig@gmail.com   http://personal.psu.edu/duh188/
