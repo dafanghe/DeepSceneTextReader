@@ -79,7 +79,7 @@ The whole scene text reading pipeline detects the text and rotate it horizontall
 The pipeline is here:
 
 <p align="center">
-  <img src="images/pipeline.jpg" width=1280 height=536>
+  <img src="images/pipeline.jpg" width=1280 height=436>
 </p>
 
 
