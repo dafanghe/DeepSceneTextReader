@@ -65,7 +65,8 @@ Download the dictionary file and put it in model
 
 
 ./DetectText --recognizer_graph='model/Recognizer_model.pb'  \
-   --image_filename='test_images/recognize_image1.jpg' --mode='recognize'
+   --image_filename='test_images/recognize_image1.jpg' --mode='recognize' \
+   --im_height=32  --im_width=128
 
 ## Detect and Recognize
 Download the pretrained detector and recognizer model and put it in model/ as described previously.
