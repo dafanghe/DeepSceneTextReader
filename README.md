@@ -26,6 +26,8 @@ It greatly helped the progress of building this project.
 # Status
 Currently two pretrained model is provided. One for scene text detection, and one for scene text recognition.
 More model will be provided.
+Note that the current model is not so robust. U can easily change to ur trained model.
+The models will be continuously updated.
 
 # build process
 
