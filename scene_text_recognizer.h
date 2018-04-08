@@ -36,7 +36,7 @@ class SceneTextRecognizer{
   public:
     SceneTextRecognizer();
 
-    SceneTextRecognizer(std::string frozen_graph_filename, std::string dictionary_filename);
+    SceneTextRecognizer(std::string frozen_graph_filename, std::string dictionary_filename, int _im_height=32, int _im_width=128);
     
     bool init(const std::string frozen_graph_filename,const std::string);
     void preprocess_image(cv::Mat& input_image, cv::Mat& output_image);
@@ -48,7 +48,7 @@ class SceneTextRecognizer{
     std::string decode_single_text(std::vector<int>& vec);
 
   private:
-    void init_constant_vars();
+    void init_constant_vars(int _im_height=32, int _im_width=128);
     tensorflow::GraphDef graph_def;
     std::vector<string> input_layers;
     std::unique_ptr<tensorflow::Session> session;
@@ -59,8 +59,6 @@ class SceneTextRecognizer{
     int image_height;
     std::unordered_map<int, char> mapping;
 };
-
-void visualize_output(std::vector<Tensor>& output);
 
 //for debug purpose
 #endif 

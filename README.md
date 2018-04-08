@@ -85,7 +85,7 @@ I modify it by changing the proposal scheme to regress to the 4 coordinates of t
 1. CTC scene text recognizer.
 The recognizer model follows the famous scene text recognition [CRNN model](https://arxiv.org/abs/1507.05717)
 
-2. Attention OCR will be updated soon.
+2. Spatial Attention OCR will be updated soon. It is based on [GoogleOCR](https://github.com/tensorflow/models/tree/master/research/attention_ocr)
 
 ### *Detect and Recognize*
 The whole scene text reading pipeline detects the text and rotate it horizontally and read it with recognizer.

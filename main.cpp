@@ -42,11 +42,10 @@ int detect_text(string& detector_graph_filename, string& image_filename, string&
 
 
 int recognize_text(string& recognizer_graph_filename, string& dictionary_filename,
-    string& image_filename)
+    string& image_filename, int im_height=32, int im_width=128)
 {
   LOG(INFO) <<"start text recognition: "<<recognizer_graph_filename;
-  SceneTextRecognizer recognizer(recognizer_graph_filename, dictionary_filename); 
-
+  SceneTextRecognizer recognizer(recognizer_graph_filename, dictionary_filename, im_height, im_width);
   cv::Mat image = cv::imread(image_filename);
   if(!image.data)                              // Check for invalid input
   {
@@ -92,10 +91,13 @@ int main(int argc, char** argv) {
   string dictionary_filename = "";
   string image_filename = "";
   string output_filename = "";
+  int im_height, im_width;
   string mode = "";
   std::vector<Flag> flag_list = {
     Flag("detector_graph", &detector_graph, "detector graph file name"),
     Flag("recognizer_graph", &recognizer_graph, "recognizer graph file name"),
+    Flag("im_height", &im_height, "image height for recognition model"),
+    Flag("im_width", &im_width, "image width for recognition model"),
     Flag("dictionary_filename", &dictionary_filename, "dictionary filename for decode the recognition results"),
     Flag("image_filename", &image_filename, "the filename to be tested."),
     Flag("output_filename", &output_filename, "the output filename"),
@@ -119,7 +121,7 @@ int main(int argc, char** argv) {
   if(mode == "detect"){
     detect_text(detector_graph, image_filename, output_filename);
   }else if(mode == "recognize"){
-    recognize_text(recognizer_graph, dictionary_filename, image_filename);
+    recognize_text(recognizer_graph, dictionary_filename, image_filename, im_height, im_width);
   }else if(mode == "detect_and_read"){
     end_to_end_reading(detector_graph, recognizer_graph,
       dictionary_filename, image_filename, output_filename);
