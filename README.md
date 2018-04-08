@@ -27,6 +27,12 @@ Please install:
 Please check this project on how to build project using tensorflow with cmake:
 https://github.com/cjweeks/tensorflow-cmake
 It greatly helped the progress of building this project.
+When building tensorflow library, please be careful since we need to use opencv. Looks like there is still problem when including tensorflow and opencv together.
+It will make opencv unable to read image.
+Check out this issue: https://github.com/tensorflow/tensorflow/issues/14267
+The answer by allenlavoie solved my problem, so I paste it here:
+
+"In the meantime, as long as you're not using any custom ops you can build libtensorflow_cc.so with bazel build --config=monolithic, which will condense everything together into one shared object (no libtensorflow_framework dependence) and seal off non-TensorFlow symbols. That shared object will have protocol buffer symbols."
 
 # Status
 Currently two pretrained model is provided. One for scene text detection, and one for scene text recognition.
