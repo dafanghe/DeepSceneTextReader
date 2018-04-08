@@ -78,6 +78,9 @@ The recognizer model follows the famous scene text recognition [CRNN model](http
 The whole scene text reading pipeline detects the text and rotate it horizontally and read it with recognizer.
 The pipeline is here:
 
+<p align="center">
+  <img src="images/pipeline.jpg" width=1280 height=536>
+</p>
 
 
 # Reference and Related Projects
