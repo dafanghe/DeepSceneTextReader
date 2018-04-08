@@ -3,8 +3,8 @@ This is a c++ project deploying a deep scene text reading pipeline. It reads tex
 
 <p align="center">
   <img src="images/1.jpg" width=1280 height=720>
-  <img src="images/2.jpg" width=576 height=400>
-  <img src="images/3.jpg" width=512 height=400>
+  <img src="images/2.jpg" width=288 height=200>
+  <img src="images/3.jpg" width=256 height=200>
 </p>
 
 
