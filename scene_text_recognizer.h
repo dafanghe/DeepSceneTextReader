@@ -53,6 +53,7 @@ class SceneTextRecognizer{
     std::vector<string> input_layers;
     std::unique_ptr<tensorflow::Session> session;
     std::vector<string> output_layers;
+    float width_scale_ratio;
     int seq_len;
     int image_width;
     int image_height;

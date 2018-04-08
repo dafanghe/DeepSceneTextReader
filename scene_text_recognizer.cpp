@@ -55,6 +55,7 @@ void SceneTextRecognizer::init_constant_vars(){
   this->seq_len = 29;
   this->image_width=128;  //input image width;
   this->image_height=32;  //input image height
+  this->width_scale_ratio=1.2; //scale the width for better recognition
 }
 
 
@@ -89,6 +90,8 @@ bool SceneTextRecognizer::init_dictionary(const std::string& filename){
 
 void SceneTextRecognizer::preprocess_image(cv::Mat& input_image, cv::Mat& output_image){
   cv::Mat resized_image, padded_image;
+  int new_width = int(this->width_scale_ratio * input_image.cols);
+  cv::resize(input_image, input_image, cv::Size(new_width, input_image.rows));
   float ratio=0;
   resize_image_fix_height(input_image, resized_image, ratio, this->image_height);
   pad_image_width(resized_image, output_image, this->image_width);
