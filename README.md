@@ -11,13 +11,15 @@ This is a c++ project deploying a deep scene text reading pipeline. It reads tex
 The project is written in c++ using tensorflow computational framework. It is tested using tensorflow 1.4. Newer version should be ok too, but not tested.
 Please install:
 
-nsync project: https://github.com/google/nsync.git
+* Tensorflow
 
-opencv3.3
+* nsync project: https://github.com/google/nsync.git
 
-protobuf
+* opencv3.3
 
-eigen
+* protobuf
+
+* eigen
 
 Please check this project on how to build project using tensorflow with cmake:
 https://github.com/cjweeks/tensorflow-cmake
