@@ -30,15 +30,14 @@ class CTCSceneTextRecognizer: public Recognizer{
   public:
     CTCSceneTextRecognizer();
 
-    CTCSceneTextRecognizer(std::string frozen_graph_filename, std::string dictionary_filename, int _im_height=32, int _im_width=128);
+    CTCSceneTextRecognizer(const std::string frozen_graph_filename, const std::string dictionary_filename,
+            int _im_height=32, int _im_width=128);
     
-    bool init(const std::string frozen_graph_filename,const std::string);
+    bool init(const std::string frozen_graph_filename, const std::string);
     void preprocess_image(cv::Mat& input_image, cv::Mat& output_image);
     std::vector<cv::Mat> preprocess_images(std::vector<cv::Mat>& input_images);
     std::string run_graph(const cv::Mat& image);
     std::vector<std::string> run_graph(const std::vector<cv::Mat> input_images);
-    bool init_graph(const std::string&);
-    bool init_dictionary(const std::string&);
 
   private:
     void init_constant_vars(int _im_height=32, int _im_width=128);

@@ -6,10 +6,10 @@ CTCSceneTextRecognizer::CTCSceneTextRecognizer(){
 }
 
 
-CTCSceneTextRecognizer::CTCSceneTextRecognizer(std::string frozen_graph_filename, std::string dictionary_filename, int _im_height, int _im_width){
+CTCSceneTextRecognizer::CTCSceneTextRecognizer(std::string frozen_graph_filename, std::string dictionary_filename, int _im_height, int _im_width):Recognizer(frozen_graph_filename, dictionary_filename){
   init_constant_vars(_im_height, _im_width);
-  init_graph(frozen_graph_filename); 
-  init_dictionary(dictionary_filename);
+  //init_graph(frozen_graph_filename); 
+  //init_dictionary(dictionary_filename);
 }
 
 
@@ -32,24 +32,6 @@ void CTCSceneTextRecognizer::init_constant_vars(int _im_height, int _im_width){
 }
 
     
-bool CTCSceneTextRecognizer::init_dictionary(const std::string& filename){
-  std::ifstream inf(filename, std::ios::in);
-  if(!inf.is_open())
-  { LOG(ERROR)<<"Error dictionary opening file "<<filename; std::exit(1); }
-
-  LOG(INFO) <<"read dictionary file "<<filename;
-  std::string line;
-  std::vector<string> splits;
-  while(!inf.eof()){
-    inf>>line;
-    splits = str_util::Split(line, ',');
-    this->mapping[std::stoi(splits[0])] = splits[1][0];
-  }
-  inf.close();
-  return 1;
-}
-
-
 void CTCSceneTextRecognizer::preprocess_image(cv::Mat& input_image, cv::Mat& output_image){
   cv::Mat resized_image, padded_image;
   int new_width = int(this->width_scale_ratio * input_image.cols);
@@ -114,22 +96,6 @@ string CTCSceneTextRecognizer::run_graph(const cv::Mat& image){
   }
   std::string decoded_text = decode_single_text(encoded_text); 
   return decoded_text;
-}
-    
-
-bool CTCSceneTextRecognizer::init_graph(const std::string& frozen_graph_filename){
-  if (!ReadBinaryProto(tensorflow::Env::Default(), frozen_graph_filename, &graph_def).ok()) {
-    LOG(ERROR) << "Read proto";
-    return -1;
-  } 
-  
-  tensorflow::SessionOptions sess_opt;
-  sess_opt.config.mutable_gpu_options()->set_allow_growth(true);
-  (&session)->reset(tensorflow::NewSession(sess_opt));
-  if (!session->Create(graph_def).ok()) {
-    LOG(ERROR) << "Create graph";
-    return -1;
-  }
 }
     
 

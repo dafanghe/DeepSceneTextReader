@@ -35,7 +35,6 @@ class SceneTextDetector{
     //std::string input_layer_, std::string output_layer_string);
     
     bool init(const std::string);
-    int run_graph(std::string image_filename);
     int run_graph(const cv::Mat& image, std::vector<TextBox>& results);
 
   private:
@@ -49,5 +48,4 @@ class SceneTextDetector{
     float score_thresh;
 };
 
-void visualize_det_output(std::vector<Tensor>&);
 #endif 

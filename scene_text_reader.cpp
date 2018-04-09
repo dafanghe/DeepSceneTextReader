@@ -6,11 +6,16 @@ namespace scene_text_reader{
 
   }
 
-  SceneTextReader::SceneTextReader(std::string& detector_graph_filename,
-      string& recognizer_graph_filename, std::string& dictionary_filename)
+  SceneTextReader::SceneTextReader(const std::string& detector_graph_filename, const string& recognizer_graph_filename,
+      const std::string& dictionary_filename, const std::string& recognizer_model)
   {
     detector.init(detector_graph_filename);
-    recognizer.init(recognizer_graph_filename, dictionary_filename);
+    if(recognizer_model == "CTC"){
+      recognizer = new CTCSceneTextRecognizer(recognizer_graph_filename, dictionary_filename);
+    }else{
+      LOG(ERROR) <<"not implemented yet";
+      //sys::exit(0);
+    }
   }
   
   void SceneTextReader::extract_word_regions(cv::Mat& image, std::vector<TextBox>& boxes, std::vector<cv::Mat>& word_regions){
@@ -40,9 +45,9 @@ namespace scene_text_reader{
     std::vector<cv::Mat> word_regions;
     extract_word_regions(image, res, word_regions);
     //preprocess all the images;
-    std::vector<cv::Mat> preprocessed_images = recognizer.preprocess_images(word_regions);
+    std::vector<cv::Mat> preprocessed_images = recognizer->preprocess_images(word_regions);
     std::cout<<preprocessed_images[0].rows<<" "<<preprocessed_images[0].cols<<std::endl;
-    std::vector<string> output_texts = recognizer.run_graph(preprocessed_images);
+    std::vector<string> output_texts = recognizer->run_graph(preprocessed_images);
     for(int i=0; i<res.size(); i++){
       res[i].set_text(output_texts[i]);
     }

@@ -25,6 +25,7 @@
 
 #include "utils.h"
 #include "ctc_scene_text_recognizer.h"
+#include "recognizer.h"
 #include "scene_text_detector.h"
 #include "text_box.h"
 
@@ -36,17 +37,16 @@ namespace scene_text_reader{
     public:
       SceneTextReader();
 
-      SceneTextReader(std::string&, std::string&, std::string&);
+      SceneTextReader(const std::string&, const std::string&, const std::string&, const std::string& recognizer_model=std::string("CTC"));
     
       void read_text(cv::Mat&, std::vector<TextBox>& res);
 
       void extract_word_regions(cv::Mat& image,
           std::vector<TextBox>& boxes, std::vector<cv::Mat>& word_regions);
     
-//      void create_recognition_input(std::vector<cv::Mat>& word_regions, std::vector<cv::Mat>& inputs);
     private:
       SceneTextDetector detector;
-      CTCSceneTextRecognizer recognizer;
+      Recognizer *recognizer; 
   };
 
 }
