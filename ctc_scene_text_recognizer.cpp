@@ -117,15 +117,6 @@ string CTCSceneTextRecognizer::run_graph(const cv::Mat& image){
 }
     
 
-string CTCSceneTextRecognizer::decode_single_text(std::vector<int>& vec){
-  std::string res;
-  for(int i=0; i<vec.size(); i++){
-    res.push_back(this->mapping[vec[i]]);
-  }
-  return res;
-}
-
-
 bool CTCSceneTextRecognizer::init_graph(const std::string& frozen_graph_filename){
   if (!ReadBinaryProto(tensorflow::Env::Default(), frozen_graph_filename, &graph_def).ok()) {
     LOG(ERROR) << "Read proto";
@@ -142,7 +133,7 @@ bool CTCSceneTextRecognizer::init_graph(const std::string& frozen_graph_filename
 }
     
 
-std::vector<cv::Mat> CTCSceneTextRecognizer::preprocess_image(std::vector<cv::Mat>& input_images){
+std::vector<cv::Mat> CTCSceneTextRecognizer::preprocess_images(std::vector<cv::Mat>& input_images){
   std::vector<cv::Mat> processed_images(input_images.size());
   for(int i=0; i<input_images.size(); i++){
     cv::Mat preprocessed_image;
@@ -214,7 +205,6 @@ std::vector<std::string> CTCSceneTextRecognizer::run_graph(const std::vector<cv:
 
   std::vector<std::vector<int> > encoded_texts(num_word);
   for(int i=0; i<indices_shape.dim_size(0); i++){
-    //std::cout<<indices(i, 0)<<" "<<values(i)<<std::endl;
     encoded_texts[indices(i, 0)].push_back(values(i));
   }
   

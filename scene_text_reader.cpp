@@ -6,7 +6,6 @@ namespace scene_text_reader{
 
   }
 
-
   SceneTextReader::SceneTextReader(std::string& detector_graph_filename,
       string& recognizer_graph_filename, std::string& dictionary_filename)
   {
@@ -41,7 +40,7 @@ namespace scene_text_reader{
     std::vector<cv::Mat> word_regions;
     extract_word_regions(image, res, word_regions);
     //preprocess all the images;
-    std::vector<cv::Mat> preprocessed_images = recognizer.preprocess_image(word_regions);
+    std::vector<cv::Mat> preprocessed_images = recognizer.preprocess_images(word_regions);
     std::cout<<preprocessed_images[0].rows<<" "<<preprocessed_images[0].cols<<std::endl;
     std::vector<string> output_texts = recognizer.run_graph(preprocessed_images);
     for(int i=0; i<res.size(); i++){
