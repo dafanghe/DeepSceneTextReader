@@ -8,20 +8,14 @@
 #include <unordered_map>
 
 #include "tensorflow/core/framework/graph.pb.h"
-#include "tensorflow/core/framework/node_def.pb.h"
 #include "tensorflow/core/framework/tensor_shape.pb.h"
 #include "tensorflow/core/framework/tensor.h"
-#include "tensorflow/core/graph/algorithm.h"
 #include "tensorflow/core/graph/graph.h"
-#include "tensorflow/core/graph/graph_constructor.h"
 #include "tensorflow/core/lib/strings/str_util.h"
-//#include "tensorflow/core/lib/strings/strcat.h"
-#include "tensorflow/core/platform/init_main.h"
 #include "tensorflow/core/platform/logging.h"
 #include "tensorflow/core/platform/platform.h"
 #include "tensorflow/core/platform/types.h"
 #include "tensorflow/core/public/session.h"
-#include "tensorflow/core/util/reporter.h"
 
 //opencv
 #include <opencv2/core.hpp>
@@ -32,11 +26,11 @@
 using namespace tensorflow;
 
 
-class SceneTextRecognizer{
+class CTCSceneTextRecognizer{
   public:
-    SceneTextRecognizer();
+    CTCSceneTextRecognizer();
 
-    SceneTextRecognizer(std::string frozen_graph_filename, std::string dictionary_filename, int _im_height=32, int _im_width=128);
+    CTCSceneTextRecognizer(std::string frozen_graph_filename, std::string dictionary_filename, int _im_height=32, int _im_width=128);
     
     bool init(const std::string frozen_graph_filename,const std::string);
     void preprocess_image(cv::Mat& input_image, cv::Mat& output_image);
@@ -45,10 +39,10 @@ class SceneTextRecognizer{
     std::vector<std::string> run_graph(const std::vector<cv::Mat> input_images);
     bool init_graph(const std::string&);
     bool init_dictionary(const std::string&);
-    std::string decode_single_text(std::vector<int>& vec);
 
   private:
     void init_constant_vars(int _im_height=32, int _im_width=128);
+    std::string decode_single_text(std::vector<int>& vec);
     tensorflow::GraphDef graph_def;
     std::vector<string> input_layers;
     std::unique_ptr<tensorflow::Session> session;

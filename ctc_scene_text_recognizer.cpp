@@ -1,26 +1,26 @@
-#include "scene_text_recognizer.h"
+#include "ctc_scene_text_recognizer.h"
 
 
-SceneTextRecognizer::SceneTextRecognizer(){
+CTCSceneTextRecognizer::CTCSceneTextRecognizer(){
   init_constant_vars(); 
 }
 
 
-SceneTextRecognizer::SceneTextRecognizer(std::string frozen_graph_filename, std::string dictionary_filename, int _im_height, int _im_width){
+CTCSceneTextRecognizer::CTCSceneTextRecognizer(std::string frozen_graph_filename, std::string dictionary_filename, int _im_height, int _im_width){
   init_constant_vars(_im_height, _im_width);
   init_graph(frozen_graph_filename); 
   init_dictionary(dictionary_filename);
 }
 
 
-bool SceneTextRecognizer::init(const std::string frozen_graph_filename, const std::string dictionary_filename){
+bool CTCSceneTextRecognizer::init(const std::string frozen_graph_filename, const std::string dictionary_filename){
   this->init_graph(frozen_graph_filename); 
   this->init_dictionary(dictionary_filename);
   return true;
 }
 
 
-void SceneTextRecognizer::init_constant_vars(int _im_height, int _im_width){
+void CTCSceneTextRecognizer::init_constant_vars(int _im_height, int _im_width){
   std::string input_layer_string = "input_images:0,input_seq_lens:0";
   std::string output_layer_string = "CTCBeamSearchDecoder:0,CTCBeamSearchDecoder:1,CTCBeamSearchDecoder:2";
   this->input_layers = str_util::Split(input_layer_string, ',');
@@ -32,7 +32,7 @@ void SceneTextRecognizer::init_constant_vars(int _im_height, int _im_width){
 }
 
     
-bool SceneTextRecognizer::init_dictionary(const std::string& filename){
+bool CTCSceneTextRecognizer::init_dictionary(const std::string& filename){
   std::ifstream inf(filename, std::ios::in);
   if(!inf.is_open())
   { LOG(ERROR)<<"Error dictionary opening file "<<filename; std::exit(1); }
@@ -50,7 +50,7 @@ bool SceneTextRecognizer::init_dictionary(const std::string& filename){
 }
 
 
-void SceneTextRecognizer::preprocess_image(cv::Mat& input_image, cv::Mat& output_image){
+void CTCSceneTextRecognizer::preprocess_image(cv::Mat& input_image, cv::Mat& output_image){
   cv::Mat resized_image, padded_image;
   int new_width = int(this->width_scale_ratio * input_image.cols);
   cv::resize(input_image, input_image, cv::Size(new_width, input_image.rows));
@@ -60,7 +60,7 @@ void SceneTextRecognizer::preprocess_image(cv::Mat& input_image, cv::Mat& output
 }
 
 
-string SceneTextRecognizer::run_graph(const cv::Mat& image){
+string CTCSceneTextRecognizer::run_graph(const cv::Mat& image){
   int height = image.rows;
   int width = image.cols;
   Tensor input_img_tensor(DT_FLOAT, TensorShape({1, height, width, 3}));
@@ -117,7 +117,7 @@ string SceneTextRecognizer::run_graph(const cv::Mat& image){
 }
     
 
-string SceneTextRecognizer::decode_single_text(std::vector<int>& vec){
+string CTCSceneTextRecognizer::decode_single_text(std::vector<int>& vec){
   std::string res;
   for(int i=0; i<vec.size(); i++){
     res.push_back(this->mapping[vec[i]]);
@@ -126,7 +126,7 @@ string SceneTextRecognizer::decode_single_text(std::vector<int>& vec){
 }
 
 
-bool SceneTextRecognizer::init_graph(const std::string& frozen_graph_filename){
+bool CTCSceneTextRecognizer::init_graph(const std::string& frozen_graph_filename){
   if (!ReadBinaryProto(tensorflow::Env::Default(), frozen_graph_filename, &graph_def).ok()) {
     LOG(ERROR) << "Read proto";
     return -1;
@@ -142,7 +142,7 @@ bool SceneTextRecognizer::init_graph(const std::string& frozen_graph_filename){
 }
     
 
-std::vector<cv::Mat> SceneTextRecognizer::preprocess_image(std::vector<cv::Mat>& input_images){
+std::vector<cv::Mat> CTCSceneTextRecognizer::preprocess_image(std::vector<cv::Mat>& input_images){
   std::vector<cv::Mat> processed_images(input_images.size());
   for(int i=0; i<input_images.size(); i++){
     cv::Mat preprocessed_image;
@@ -153,7 +153,7 @@ std::vector<cv::Mat> SceneTextRecognizer::preprocess_image(std::vector<cv::Mat>&
 }
     
 
-std::vector<std::string> SceneTextRecognizer::run_graph(const std::vector<cv::Mat> images){
+std::vector<std::string> CTCSceneTextRecognizer::run_graph(const std::vector<cv::Mat> images){
   //the images must be preprocessd and has the same height and width!!
   std::vector<std::string> res;
   int num_word = images.size();

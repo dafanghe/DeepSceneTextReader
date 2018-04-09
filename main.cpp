@@ -1,15 +1,14 @@
-#include <cstdlib>
 #include <fstream>
 #include <memory>
 #include <string>
-#include <unordered_set>
 #include <vector>
+#include <opencv2/core.hpp>
 
+#include "tensorflow/core/platform/init_main.h"
 #include "tensorflow/core/util/command_line_flags.h"
 #include "scene_text_detector.h"
-#include "scene_text_recognizer.h"
+#include "ctc_scene_text_recognizer.h"
 #include "scene_text_reader.h"
-#include <opencv2/core.hpp>
 #include "utils.h"
 
 int detect_text(string& detector_graph_filename, string& image_filename, string& output_filename)
@@ -45,7 +44,7 @@ int recognize_text(string& recognizer_graph_filename, string& dictionary_filenam
     string& image_filename, int im_height=32, int im_width=128)
 {
   LOG(INFO) <<"start text recognition: "<<recognizer_graph_filename;
-  SceneTextRecognizer recognizer(recognizer_graph_filename, dictionary_filename, im_height, im_width);
+  CTCSceneTextRecognizer recognizer(recognizer_graph_filename, dictionary_filename, im_height, im_width);
   cv::Mat image = cv::imread(image_filename);
   if(!image.data)                              // Check for invalid input
   {
