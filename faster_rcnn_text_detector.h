@@ -1,5 +1,5 @@
-#ifndef Scene_Text_Detector_H
-#define Scene_Text_Detector_H
+#ifndef FasterRCNN_Text_Detector_H
+#define FasterRCNN_Text_Detector_H
 
 #include <iostream>
 #include <memory>
@@ -21,30 +21,23 @@
 #include <opencv2/core.hpp>
 #include "opencv2/opencv.hpp"
 
+#include "detector.h"
 #include "text_box.h"
 #include "utils.h"
 
 using namespace tensorflow;
 
 
-class SceneTextDetector{
+class FasterRCNNTextDetector: public Detector{
   public:
-    SceneTextDetector(){};
+    FasterRCNNTextDetector(){};
 
-    SceneTextDetector(const std::string frozen_graph_filename);
-    //std::string input_layer_, std::string output_layer_string);
+    FasterRCNNTextDetector(const std::string frozen_graph_filename);
     
-    bool init(const std::string);
+    bool init_constants();
     int run_graph(const cv::Mat& image, std::vector<TextBox>& results);
 
   private:
-    Status ReadTensorFromImageFile(string file_name, std::vector<Tensor>* out_tensors);
-
-    bool init_graph(const std::string& frozen_graph_filename);
-    tensorflow::GraphDef graph_def;
-    std::string input_layer;
-    std::unique_ptr<tensorflow::Session> session;
-    std::vector<string> output_layers;
     float score_thresh;
 };
 

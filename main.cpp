@@ -6,7 +6,7 @@
 
 #include "tensorflow/core/platform/init_main.h"
 #include "tensorflow/core/util/command_line_flags.h"
-#include "scene_text_detector.h"
+#include "faster_rcnn_text_detector.h"
 #include "ctc_scene_text_recognizer.h"
 #include "scene_text_reader.h"
 #include "utils.h"
@@ -15,7 +15,7 @@ int detect_text(string& detector_graph_filename, string& image_filename, string&
 {
   LOG(INFO)<<"start text detection:";
 
-  SceneTextDetector detector(detector_graph_filename);
+  FasterRCNNTextDetector detector(detector_graph_filename);
 
   cv::Mat image = cv::imread(image_filename);
   if(!image.data)                              // Check for invalid input

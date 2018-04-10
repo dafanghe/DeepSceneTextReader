@@ -24,9 +24,13 @@
 #include "opencv2/opencv.hpp"
 
 #include "utils.h"
+//recognizer
 #include "ctc_scene_text_recognizer.h"
 #include "recognizer.h"
-#include "scene_text_detector.h"
+//detector
+#include "faster_rcnn_text_detector.h"
+#include "detector.h"
+
 #include "text_box.h"
 
 using namespace tensorflow;
@@ -37,7 +41,9 @@ namespace scene_text_reader{
     public:
       SceneTextReader();
 
-      SceneTextReader(const std::string&, const std::string&, const std::string&, const std::string& recognizer_model=std::string("CTC"));
+      SceneTextReader(const std::string&, const std::string&, const std::string&,
+                      const std::string& detector_model=std::string("FasterRCNN"),
+                      const std::string& recognizer_model=std::string("CTC"));
     
       void read_text(cv::Mat&, std::vector<TextBox>& res);
 
@@ -45,7 +51,7 @@ namespace scene_text_reader{
           std::vector<TextBox>& boxes, std::vector<cv::Mat>& word_regions);
     
     private:
-      SceneTextDetector detector;
+      Detector *detector;
       Recognizer *recognizer; 
   };
 

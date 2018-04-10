@@ -7,13 +7,17 @@ namespace scene_text_reader{
   }
 
   SceneTextReader::SceneTextReader(const std::string& detector_graph_filename, const string& recognizer_graph_filename,
-      const std::string& dictionary_filename, const std::string& recognizer_model)
+     const std::string& detector_model, const std::string& dictionary_filename, const std::string& recognizer_model)
   {
-    detector.init(detector_graph_filename);
+    if(detector_model == "FasterRCNN"){
+      detector = new FasterRCNNTextDetector(detector_graph_filename);
+    }else{
+      LOG(ERROR) <<detector_model + " not implemented yet";
+    }
     if(recognizer_model == "CTC"){
       recognizer = new CTCSceneTextRecognizer(recognizer_graph_filename, dictionary_filename);
     }else{
-      LOG(ERROR) <<"not implemented yet";
+      LOG(ERROR) <<recognizer_model + " not implemented yet";
       //sys::exit(0);
     }
   }
@@ -40,7 +44,7 @@ namespace scene_text_reader{
   }
 
   void SceneTextReader::read_text(cv::Mat& image, std::vector<TextBox>& res){ 
-    detector.run_graph(image, res);
+    detector->run_graph(image, res);
     std::cout<<"found "<<res.size()<<" number of text"<<std::endl; 
     std::vector<cv::Mat> word_regions;
     extract_word_regions(image, res, word_regions);
