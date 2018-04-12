@@ -80,7 +80,7 @@ Download the pretrained detector and recognizer model and put it in model/ as de
 The detector is trained with modified tensorflow [object detector api]: (https://github.com/tensorflow/models/tree/master/research/object_detection)
 I modify it by changing the proposal scheme to regress to the 4 coordinates of the oriented bounding box rather than regular rectangular bounding box.
 
-2. More model to be updated.
+2. R2CNN will be updated. See [R2CNN](https://arxiv.org/abs/1706.09579) for details.
 
 ### *Recognizer*
 1. CTC scene text recognizer.
@@ -102,7 +102,8 @@ The pipeline is here:
 - [Tensorflow Object Detection API](https://github.com/tensorflow/models/tree/master/research/object_detection).
 - [An End-to-End Trainable Neural Network for Image-based Sequence Recognition and Its Application to Scene Text Recognition](https://arxiv.org/abs/1507.05717), reference paper for CRNN model.
 - [tensorflow-cmake](https://github.com/cjweeks/tensorflow-cmake), Tutorial of Building Project with tensorflow using cmake.
+- [R2CNN](https://arxiv.org/abs/1706.09579) Reference paper for R2CNN.
 
 # Contact:
 
-* Dafang He.  hdfcraig@gmail.com   http://personal.psu.edu/duh188/
+* Dafang He. The Penn State University.  hdfcraig@gmail.com   http://personal.psu.edu/duh188/
