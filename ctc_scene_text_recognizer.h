@@ -47,5 +47,4 @@ class CTCSceneTextRecognizer: public Recognizer{
     int image_height;
 };
 
-//for debug purpose
 #endif 

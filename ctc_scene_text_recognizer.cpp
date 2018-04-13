@@ -8,8 +8,6 @@ CTCSceneTextRecognizer::CTCSceneTextRecognizer(){
 
 CTCSceneTextRecognizer::CTCSceneTextRecognizer(std::string frozen_graph_filename, std::string dictionary_filename, int _im_height, int _im_width):Recognizer(frozen_graph_filename, dictionary_filename){
   init_constant_vars(_im_height, _im_width);
-  //init_graph(frozen_graph_filename); 
-  //init_dictionary(dictionary_filename);
 }
 
 

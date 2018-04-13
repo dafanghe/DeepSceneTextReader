@@ -27,7 +27,7 @@ class Detector{
     }
     bool init_graph(const std::string& frozen_graph_filename){
       if (!ReadBinaryProto(tensorflow::Env::Default(), frozen_graph_filename, &graph_def).ok()) {
-        LOG(ERROR) << "Read proto";
+        LOG(ERROR) << "error when reading proto" << frozen_graph_fliename;
         return -1;
       } 
       
@@ -35,7 +35,7 @@ class Detector{
       sess_opt.config.mutable_gpu_options()->set_allow_growth(true);
       (&session)->reset(tensorflow::NewSession(sess_opt));
       if (!session->Create(graph_def).ok()) {
-        LOG(ERROR) << "Create graph";
+        LOG(ERROR) << "error create graph";
         return -1;
       }
     }

@@ -18,7 +18,6 @@ namespace scene_text_reader{
       recognizer = new CTCSceneTextRecognizer(recognizer_graph_filename, dictionary_filename);
     }else{
       LOG(ERROR) <<recognizer_model + " not implemented yet";
-      //sys::exit(0);
     }
   }
   
@@ -33,12 +32,9 @@ namespace scene_text_reader{
       std::vector<cv::Point> new_points;
       get_cropped_extend_image(image, boxes[i], cropped, new_points);
       
-      //draw_polygon(cropped, new_points);
-      //cv::imwrite("test.jpg", cropped);
       cv::Mat rotated;
       std::vector<cv::Point> rotated_points;
       rotate_image_and_points(cropped, new_points, angle, rotated, rotated_points);
-      //cv::imwrite("results/test_" + std::to_string(i) + "_" + std::to_string(angle) + ".jpg", rotated); 
       word_regions.push_back(rotated);
     }
   }
