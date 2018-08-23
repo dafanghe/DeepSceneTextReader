@@ -96,6 +96,14 @@ The pipeline is here:
   <img src="images/pipeline.jpg" width=1280 height=436>
 </p>
 
+### *Pretrained Models*
+You can play with the code with provided pretrained models.
+They are not fully optimized yet, but could be used for being familiar with the code.
+Check them here: [models](https://drive.google.com/drive/folders/1Ao0ZrSVf0YjU6pnzGY0C3QJ2Qz0ljRIU?usp=sharing)
+You will find one detection models called: FasterRCNN_detector_model.pb
+Two recognition models with their charset: Recognizer_model.pb + charset_full.txt and Recognizer_model_case_insen.pb + charset_case_insen.txt.
+Let me know if u have any problens using them.
+
 
 # Reference and Related Projects
 - [Faster RCNN](https://arxiv.org/abs/1506.01497) Faster RCNN paper.
