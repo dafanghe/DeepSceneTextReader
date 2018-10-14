@@ -79,7 +79,6 @@ Download the pretrained detector and recognizer model and put it in model/ as de
 1. Faster RCNN Detector Model
 The detector is trained with modified tensorflow [object detector api]: (https://github.com/tensorflow/models/tree/master/research/object_detection)
 I modify it by changing the proposal scheme to regress to the 4 coordinates of the oriented bounding box rather than regular rectangular bounding box.
-$t_{xj} = (g_{xj} - x_{a})/w_a$
 The training code will be released soon.
 Pretrained model: FasterRCNN_detector_model.pb
 
