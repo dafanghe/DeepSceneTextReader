@@ -79,6 +79,7 @@ Download the pretrained detector and recognizer model and put it in model/ as de
 1. Faster RCNN Detector Model
 The detector is trained with modified tensorflow [object detector api]: (https://github.com/tensorflow/models/tree/master/research/object_detection)
 I modify it by changing the proposal scheme to regress to the 4 coordinates of the oriented bounding box rather than regular rectangular bounding box.
+$t_{xj} = (g_{xj} - x_{a})/w_a$
 The training code will be released soon.
 Pretrained model: FasterRCNN_detector_model.pb
 
@@ -106,7 +107,7 @@ You can play with the code with provided pretrained models. \
 They are not fully optimized yet, but could be used for being familiar with the code. \
 Check them out here: [models](https://drive.google.com/drive/folders/1Ao0ZrSVf0YjU6pnzGY0C3QJ2Qz0ljRIU?usp=sharing) 
 
-You will find one detection models called: (1) **FasterRCNN_detector_model.pb** (2) **R2CNN_detector_model.pb** \
+You will find two detection models called: (1) **FasterRCNN_detector_model.pb** (2) **R2CNN_detector_model.pb** \
 Two recognition models with their charset: (1) **Recognizer_model.pb + charset_full.txt** and (2)**Recognizer_model_case_insen.pb + charset_case_insen.txt**. \
 Full charset means English letters + digit and case insen means case insensitive English letters + digit.
 Let me know if u have any problens using them.
