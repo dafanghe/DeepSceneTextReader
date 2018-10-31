@@ -79,7 +79,7 @@ Download the pretrained detector and recognizer model and put it in model/ as de
 1. Faster RCNN Detector Model
 The detector is trained with modified tensorflow [object detector api]: (https://github.com/tensorflow/models/tree/master/research/object_detection)
 I modify it by changing the proposal scheme to regress to the 4 coordinates of the oriented bounding box rather than regular rectangular bounding box.
-The training code will be released soon.
+Check out this [repo](https://github.com/dafanghe/Tensorflow_SceneText_Oriented_Box_Predictor) for the training code.
 Pretrained model: FasterRCNN_detector_model.pb
 
 2. R2CNN will be updated. See [R2CNN](https://arxiv.org/abs/1706.09579) for details.
